@@ -20,4 +20,24 @@ public class StateModel {
 	public String getStateName() {
 		return stateName;
 	}
+
+	public String toString() {
+		return "[" + stateId + "," + stateName + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		StateModel model = (StateModel) obj;
+		if (model.getStateId() == this.stateId && model.getStateName().equals(this.stateName)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+
+		return stateId * 10000;
+	}
 }

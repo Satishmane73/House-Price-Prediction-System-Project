@@ -31,7 +31,16 @@ public class HousePricePredClientApp {
 
 				break;
 			case 2:
-
+					List<StateModel> list=stateService.getAllStates(); 
+					
+					if(list!=null)
+					{
+						list.forEach((s)->System.out.println(s.getStateId()+"\t"+s.getStateName()));
+					}
+					else
+					{
+						System.out.println("There will be nothing to display");
+					}
 				break;
 			case 9:
 

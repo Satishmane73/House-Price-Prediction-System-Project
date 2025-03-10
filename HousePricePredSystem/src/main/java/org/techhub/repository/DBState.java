@@ -9,5 +9,5 @@ public class DBState {
 	DBConfig config = DBConfig.getInstance();
 	protected Connection conn = config.getConn();
 	protected PreparedStatement stmt = config.getStatment();
-	protected ResultSet rd = config.getResult();
+	protected ResultSet rs = config.getResult();
 }
