@@ -8,4 +8,5 @@ public interface StateService {
 	public boolean isAddNewState(StateModel model);
 	public List<StateModel> getAllStates() ;
 	public StateModel getSateByName(String stateName);
+	public boolean isDeleteStateById(String stateName);
 }

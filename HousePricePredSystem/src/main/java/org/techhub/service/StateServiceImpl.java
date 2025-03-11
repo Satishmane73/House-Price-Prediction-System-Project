@@ -12,7 +12,6 @@ public class StateServiceImpl implements StateService {
 
 	@Override
 	public boolean isAddNewState(StateModel model) {
-
 		return stmtRepo.isAddNewState(model);
 	}
 
@@ -23,7 +22,11 @@ public class StateServiceImpl implements StateService {
 
 	@Override
 	public StateModel getSateByName(String stateName) {
-		
 		return stmtRepo.getSateByName(stateName);
+	}
+
+	@Override
+	public boolean isDeleteStateById(String stateName) {
+		return stmtRepo.isDeleteState(stateName);
 	}
 }

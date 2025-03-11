@@ -8,4 +8,6 @@ public interface StateRepository {
 	public boolean isAddNewState(StateModel model);
 	public List <StateModel> getAllStates(); 
 	public StateModel getSateByName(String stateName);
+	public boolean isDeleteState(String stateName);
+	public int getStateIdByName(String stateName);
 }

@@ -6,14 +6,13 @@ import org.techhub.model.StateModel;
 
 public class StateRepositoryImpl extends DBState implements StateRepository {
 
-	
-	List<StateModel> list ;
-	
+	List<StateModel> list;
+
 	// this method used to store state in database
 	@Override
 	public boolean isAddNewState(StateModel model) {
 		try {
-			stmt = conn.prepareStatement("insert into statemaster values('0',?)");
+			stmt = conn.prepareStatement(Querys.enterState);
 			stmt.setString(1, model.getStateName());
 			int value = stmt.executeUpdate();
 			return value > 0 ? true : false;
@@ -30,7 +29,7 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 	public List<StateModel> getAllStates() {
 		list = new ArrayList<StateModel>();
 		try {
-			stmt = conn.prepareStatement("select *from statemaster");
+			stmt = conn.prepareStatement(Querys.getAllStates);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				StateModel model = new StateModel(rs.getInt(1), rs.getString(2));
@@ -45,24 +44,56 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 
 	@Override
 	public StateModel getSateByName(String stateName) {
-		try
-		{
-			stmt=conn.prepareStatement(Querys.getStateByName);
+		try {
+			stmt = conn.prepareStatement(Querys.getStateByName);
 			stmt.setString(1, stateName);
-			rs=stmt.executeQuery();
-			if(rs.next())
-			{
-				return new StateModel(rs.getInt(1),rs.getString(2));
-			}
-			else {
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return new StateModel(rs.getInt(1), rs.getString(2));
+			} else {
 				return null;
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
+	@Override
+	public boolean isDeleteState(String stateName) {
+		try {
+			int stateId = this.getStateIdByName(stateName);
+			if (stateId != -1) {
+				stmt = conn.prepareStatement(Querys.deleteStateById);
+				stmt.setInt(1, stateId);
+
+				int value = stmt.executeUpdate();
+
+				return value > 0 ? true : false;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public int getStateIdByName(String stateName) {
+
+		try {
+			stmt = conn.prepareStatement(Querys.getIdByStateName);
+			stmt.setString(1, stateName);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			} else {
+				return -1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }
