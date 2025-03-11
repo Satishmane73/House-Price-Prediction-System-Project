@@ -29,4 +29,9 @@ public class StateServiceImpl implements StateService {
 	public boolean isDeleteStateById(String stateName) {
 		return stmtRepo.isDeleteState(stateName);
 	}
+	@Override
+	public boolean isUpdateState(String currName, String newName) {
+		return stmtRepo.isUpdateState(currName, newName);
+	}
+	
 }

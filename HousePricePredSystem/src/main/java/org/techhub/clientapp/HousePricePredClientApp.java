@@ -19,6 +19,7 @@ public class HousePricePredClientApp {
 			System.out.println("2 : Display All States");
 			System.out.println("3 : Search State");
 			System.out.println("4 : Delete State");
+			System.out.println("5 : Update State");
 			System.out.println("9 : Exit");
 			System.out.println("Enter your choice");
 			int ch = scr.nextInt();
@@ -64,6 +65,25 @@ public class HousePricePredClientApp {
 				} else {
 					System.out.println("Something Wrong...");
 				}
+				break;
+			case 5:
+				System.out.println("Enter State current name");
+				scr.nextLine();
+				String currName=scr.nextLine();
+				
+				System.out.println("Enter state new name");
+				String newName=scr.nextLine();
+				
+				b=stateService.isUpdateState(currName, newName);
+				if(b)
+				{
+					System.out.println("State updates Successfully..");
+				}
+				else
+				{
+					System.out.println("Something Wrong...");
+				}
+				
 				break;
 			case 9:
 

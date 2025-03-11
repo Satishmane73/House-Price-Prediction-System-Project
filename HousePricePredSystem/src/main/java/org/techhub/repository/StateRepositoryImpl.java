@@ -96,4 +96,24 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 			return -1;
 		}
 	}
+
+	@Override
+	public boolean isUpdateState(String currName, String newName) {
+		try {
+			int stateId = this.getStateIdByName(currName);
+			if (stateId != -1) {
+				stmt = conn.prepareStatement(Querys.updateStateName);
+				stmt.setString(1, newName);
+				stmt.setInt(2, stateId);
+				int value = stmt.executeUpdate();
+				return value > 0 ? true : false;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
 }

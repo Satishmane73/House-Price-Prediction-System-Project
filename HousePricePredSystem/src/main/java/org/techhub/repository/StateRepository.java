@@ -10,4 +10,5 @@ public interface StateRepository {
 	public StateModel getSateByName(String stateName);
 	public boolean isDeleteState(String stateName);
 	public int getStateIdByName(String stateName);
+	public boolean isUpdateState(String currName, String newName);
 }
