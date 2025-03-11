@@ -21,4 +21,9 @@ public class StateServiceImpl implements StateService {
 		return stmtRepo.getAllStates();
 	}
 
+	@Override
+	public StateModel getSateByName(String stateName) {
+		
+		return stmtRepo.getSateByName(stateName);
+	}
 }

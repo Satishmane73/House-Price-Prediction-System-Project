@@ -43,4 +43,26 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 		}
 	}
 
+	@Override
+	public StateModel getSateByName(String stateName) {
+		try
+		{
+			stmt=conn.prepareStatement(Querys.getStateByName);
+			stmt.setString(1, stateName);
+			rs=stmt.executeQuery();
+			if(rs.next())
+			{
+				return new StateModel(rs.getInt(1),rs.getString(2));
+			}
+			else {
+				return null;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

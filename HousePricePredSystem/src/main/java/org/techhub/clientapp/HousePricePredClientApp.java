@@ -16,6 +16,7 @@ public class HousePricePredClientApp {
 		do {
 			System.out.println("1 : Enter State");
 			System.out.println("2 : Display All States");
+			System.out.println("3 : Search State");
 			System.out.println("9 : Exit");
 			System.out.println("Enter your choice");
 			int ch = scr.nextInt();
@@ -24,8 +25,7 @@ public class HousePricePredClientApp {
 				// In this case we are adding a state in detabase
 				System.out.println("Enter New State");
 				scr.nextLine();
-				String stateName = scr.nextLine();
-				String result = stateService.isAddNewState(new StateModel(0, stateName)) ? "State Added Succsessfully"
+				String result = stateService.isAddNewState(new StateModel(0, scr.nextLine())) ? "State Added Succsessfully"
 						: "" + "State Not Added";
 				System.out.println(result);
 
@@ -41,6 +41,21 @@ public class HousePricePredClientApp {
 					{
 						System.out.println("There will be nothing to display");
 					}
+				break;
+			case 3:
+				System.out.println("Enter state name to search state");
+				scr.nextLine();
+				String stateName=scr.nextLine();
+				StateModel model=stateService.getSateByName(stateName);
+				if(model!=null)
+				{
+					System.out.println(model.getStateId()+"\t"+model.getStateName());
+				}
+				else
+				{
+					System.out.println("State Not Found");
+				}
+				
 				break;
 			case 9:
 
