@@ -33,5 +33,12 @@ public class StateServiceImpl implements StateService {
 	public boolean isUpdateState(String currName, String newName) {
 		return stmtRepo.isUpdateState(currName, newName);
 	}
-	
+	@Override
+	public boolean isAssociateDistToState(String stateName, String distName) {
+		return stmtRepo.isAssociateDistToState(stateName, distName);
+	}
+	@Override
+	public boolean addBultDist(String stateName) {
+		return stmtRepo.addBultDist(stateName);
+	}
 }

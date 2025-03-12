@@ -10,4 +10,6 @@ public interface StateService {
 	public StateModel getSateByName(String stateName);
 	public boolean isDeleteStateById(String stateName);
 	public boolean isUpdateState(String currName,String newName);
+	public boolean isAssociateDistToState(String stateName, String distName);
+	public boolean addBultDist(String stateName);
 }

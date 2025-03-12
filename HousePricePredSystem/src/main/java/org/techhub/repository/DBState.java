@@ -10,4 +10,9 @@ public class DBState {
 	protected Connection conn = config.getConn();
 	protected PreparedStatement stmt = config.getStatment();
 	protected ResultSet rs = config.getResult();
+	protected CallableStatement cstmt=config.getCallStatement();
+	DBState()
+	{
+		System.out.println(config.getConn());
+	}
 }

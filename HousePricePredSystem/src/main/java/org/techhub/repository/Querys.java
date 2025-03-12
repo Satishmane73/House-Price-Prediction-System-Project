@@ -20,4 +20,19 @@ public class Querys {
 	
 	//query to update state by id
 	public static String updateStateName="update statemaster set statename=? where stateid=?";
+	
+	//query to call procedure to store dist dist table and statedist join in database
+	public static String callProcedure="call saveDist(?,?)";
+	
+	//query to get dist by distname
+	public static String getDistByName="select *from distmaster where distname=?";
+	
+	//query to get distid by dist name
+	public static String getDistIdByName="select distid from distmaster where distname=?";
+	
+	//query to update dist name
+	public static String updateDistName="update distmaster set distname=? where distid=?";
+	
+	//query to delete dist
+	public static String deleteDist="delete from distmaster where distid=?";
 }
