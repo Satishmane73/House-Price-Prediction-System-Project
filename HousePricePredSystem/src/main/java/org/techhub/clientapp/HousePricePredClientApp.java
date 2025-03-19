@@ -56,8 +56,6 @@ public class HousePricePredClientApp {
 				StateModel model = stateService.getSateByName(stateName);
 				if (model != null) {
 					System.out.println(model.getStateId() + "\t" + model.getStateName());
-				} else {
-					System.out.println("State Not Found...");
 				}
 				break;
 			case 4:

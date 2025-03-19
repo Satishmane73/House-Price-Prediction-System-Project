@@ -2,8 +2,10 @@ package org.techhub.repository;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.SQLException;
 import java.util.*;
 
+import org.techhub.customeException.StateException;
 import org.techhub.model.StateModel;
 
 public class StateRepositoryImpl extends DBState implements StateRepository {
@@ -53,10 +55,13 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 			if (rs.next()) {
 				return new StateModel(rs.getInt(1), rs.getString(2));
 			} else {
-				return null;
+				throw new StateException("State Not Found : " + stateName);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
+		} catch (StateException se) {
+			System.out.println(se.getMassage());
 			return null;
 		}
 	}
@@ -118,41 +123,38 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 		}
 
 	}
+
 	@Override
 	public boolean isAssociateDistToState(String stateName, String distName) {
-		try 
-		{
-			cstmt=conn.prepareCall(Querys.callProcedure);
+		try {
+			cstmt = conn.prepareCall(Querys.callProcedure);
 			cstmt.setString(1, stateName);
 			cstmt.setString(2, distName);
-			boolean b=cstmt.execute();
+			boolean b = cstmt.execute();
 			return !b;
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
+
 	@Override
 	public boolean addBultDist(String stateName) {
-		try
-		{
-			boolean b=false;
-			FileReader fr=new FileReader("D:\\House-Price-Prediction-System-Project\\HousePricePredSystem\\Files\\DistFile.txt");
-			BufferedReader br=new BufferedReader(fr);
+		try {
+			boolean b = false;
+			FileReader fr = new FileReader(
+					"D:\\House-Price-Prediction-System-Project\\HousePricePredSystem\\Files\\DistFile.txt");
+			@SuppressWarnings("resource")
+			BufferedReader br = new BufferedReader(fr);
 			String distName;
-			while((distName=br.readLine())!=null)
-			{
-				cstmt=conn.prepareCall(Querys.callProcedure);
+			while ((distName = br.readLine()) != null) {
+				cstmt = conn.prepareCall(Querys.callProcedure);
 				cstmt.setString(1, stateName);
 				cstmt.setString(2, distName);
-				b=cstmt.execute();
+				b = cstmt.execute();
 			}
 			return !b;
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
