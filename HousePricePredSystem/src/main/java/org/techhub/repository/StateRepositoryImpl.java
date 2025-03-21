@@ -16,7 +16,7 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 	@Override
 	public boolean isAddNewState(StateModel model) {
 		try {
-			stmt = conn.prepareStatement(Querys.enterState);
+			stmt = conn.prepareStatement(Query.enterState);
 			stmt.setString(1, model.getStateName());
 			int value = stmt.executeUpdate();
 			return value > 0 ? true : false;
@@ -33,7 +33,7 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 	public List<StateModel> getAllStates() {
 		list = new ArrayList<StateModel>();
 		try {
-			stmt = conn.prepareStatement(Querys.getAllStates);
+			stmt = conn.prepareStatement(Query.getAllStates);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				StateModel model = new StateModel(rs.getInt(1), rs.getString(2));
@@ -49,7 +49,7 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 	@Override
 	public StateModel getSateByName(String stateName) {
 		try {
-			stmt = conn.prepareStatement(Querys.getStateByName);
+			stmt = conn.prepareStatement(Query.getStateByName);
 			stmt.setString(1, stateName);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
@@ -71,7 +71,7 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 		try {
 			int stateId = this.getStateIdByName(stateName);
 			if (stateId != -1) {
-				stmt = conn.prepareStatement(Querys.deleteStateById);
+				stmt = conn.prepareStatement(Query.deleteStateById);
 				stmt.setInt(1, stateId);
 
 				int value = stmt.executeUpdate();
@@ -90,7 +90,7 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 	public int getStateIdByName(String stateName) {
 
 		try {
-			stmt = conn.prepareStatement(Querys.getIdByStateName);
+			stmt = conn.prepareStatement(Query.getIdByStateName);
 			stmt.setString(1, stateName);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
@@ -109,7 +109,7 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 		try {
 			int stateId = this.getStateIdByName(currName);
 			if (stateId != -1) {
-				stmt = conn.prepareStatement(Querys.updateStateName);
+				stmt = conn.prepareStatement(Query.updateStateName);
 				stmt.setString(1, newName);
 				stmt.setInt(2, stateId);
 				int value = stmt.executeUpdate();
@@ -127,7 +127,7 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 	@Override
 	public boolean isAssociateDistToState(String stateName, String distName) {
 		try {
-			cstmt = conn.prepareCall(Querys.callProcedure);
+			cstmt = conn.prepareCall(Query.callProcedureOfCity);
 			cstmt.setString(1, stateName);
 			cstmt.setString(2, distName);
 			boolean b = cstmt.execute();
@@ -148,7 +148,7 @@ public class StateRepositoryImpl extends DBState implements StateRepository {
 			BufferedReader br = new BufferedReader(fr);
 			String distName;
 			while ((distName = br.readLine()) != null) {
-				cstmt = conn.prepareCall(Querys.callProcedure);
+				cstmt = conn.prepareCall(Query.callProcedureOfCity);
 				cstmt.setString(1, stateName);
 				cstmt.setString(2, distName);
 				b = cstmt.execute();

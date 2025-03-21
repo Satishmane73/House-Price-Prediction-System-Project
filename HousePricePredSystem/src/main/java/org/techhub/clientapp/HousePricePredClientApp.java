@@ -2,6 +2,7 @@ package org.techhub.clientapp;
 
 import java.util.*;
 
+import org.techhub.model.CityModel;
 import org.techhub.model.DistModel;
 import org.techhub.model.StateModel;
 import org.techhub.service.*;
@@ -9,12 +10,13 @@ import org.techhub.repository.*;
 
 //It is a main class of our Project
 public class HousePricePredClientApp {
+	static int count = 0;
 
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
 		Scanner scr = new Scanner(System.in);
 		StateService stateService = new StateServiceImpl();
-
+		CityService cityService = new CityServiceImpl();
 		do {
 			System.out.println();
 			System.out.println("1 : Enter State");
@@ -25,7 +27,8 @@ public class HousePricePredClientApp {
 			System.out.println("6 : Add single district in state");
 			System.out.println("7 : Add more than one districts in state");
 			System.out.println("8 : Search,Update, delete district");
-			System.out.println("9 : Exit");
+			System.out.println("9 : Enter City");
+			System.out.println("10 : Exit");
 			System.out.println("Enter your choice");
 			int ch = scr.nextInt();
 			System.out.println();
@@ -33,13 +36,6 @@ public class HousePricePredClientApp {
 			switch (ch) {
 			case 1:
 				// In this case we are adding a state in detabase
-				System.out.println("Enter New State");
-				scr.nextLine();
-				String result = stateService.isAddNewState(new StateModel(0, scr.nextLine()))
-						? "State Added Succsessfully..."
-						: "" + "State Not Added...";
-				System.out.println(result);
-				break;
 			case 2:
 				List<StateModel> list = stateService.getAllStates();
 
@@ -172,6 +168,59 @@ public class HousePricePredClientApp {
 				} while (flag);
 				break;
 			case 9:
+				list = stateService.getAllStates();
+
+				if (list != null) {
+					DistServices distServices = new DistServicesImpl();
+					count = 0;
+					list.forEach((s) -> System.out.println((++count) + "\t" + s.getStateName()));
+					System.out.println("Enter State Name to add city in that state");
+					scr.nextLine();
+					stateName = scr.nextLine();
+					System.out.println("District Names");
+					System.out.println("-------------------------");
+					List<DistModel> distList = distServices.getDistByStateName(stateName);
+					if (distList != null) {
+						distList.forEach((dist) -> System.out.println(dist.getDistId() + "\t" + dist.getDistName()));
+						System.out.println("Enter Dist name in which city want to add");
+						String distName = scr.nextLine();
+						int stateId = stateService.getStateIdByName(stateName);
+						int distId = distServices.getDistIdByName(distName);
+
+						System.out.println("Enter City Name");
+						String cityName = scr.nextLine();
+
+						CityModel cityModel = new CityModel();
+
+						cityModel.setDistId(distId);
+						cityModel.setStateId(stateId);
+						cityModel.setCityName(cityName);
+						b = cityService.isAddNewCity(cityModel);
+						if (b) {
+							System.out.println("City Added Successfully...");
+						} else {
+							System.out.println("City Not added...");
+						}
+
+					} else {
+						System.out.println("Do you want to add " + stateName + " in database");
+						String msg = scr.nextLine();
+						if (msg.equals("yes")) {
+							b = stateService.isAddNewState(new StateModel(0, stateName));
+							if (b) {
+								System.out.println("State Added Succesfully...");
+							} else {
+								System.out.println("Something Wroing...");
+							}
+						} else {
+							System.out.println("No");
+						}
+					}
+				} else {
+					System.out.println("There will be nothing to display...");
+				}
+				break;
+			case 10:
 				System.exit(0);
 				break;
 			default:

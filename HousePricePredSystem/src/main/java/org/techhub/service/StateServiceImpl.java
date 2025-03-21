@@ -29,16 +29,24 @@ public class StateServiceImpl implements StateService {
 	public boolean isDeleteStateById(String stateName) {
 		return stmtRepo.isDeleteState(stateName);
 	}
+
 	@Override
 	public boolean isUpdateState(String currName, String newName) {
 		return stmtRepo.isUpdateState(currName, newName);
 	}
+
 	@Override
 	public boolean isAssociateDistToState(String stateName, String distName) {
 		return stmtRepo.isAssociateDistToState(stateName, distName);
 	}
+
 	@Override
 	public boolean addBultDist(String stateName) {
 		return stmtRepo.addBultDist(stateName);
+	}
+
+	@Override
+	public int getStateIdByName(String stateName) {
+		return stmtRepo.getStateIdByName(stateName);
 	}
 }

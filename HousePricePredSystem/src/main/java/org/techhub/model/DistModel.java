@@ -1,6 +1,6 @@
 package org.techhub.model;
 
-public class DistModel {
+public class DistModel extends StateModel {
 	private int distId;
 	private String distName;
 
@@ -13,8 +13,16 @@ public class DistModel {
 		this.distName = distName;
 	}
 
+	public void setDistId(int distId) {
+		this.distId = distId;
+	}
+
 	public int getDistId() {
 		return distId;
+	}
+
+	public void setDistName(String distName) {
+		this.distName = distName;
 	}
 
 	public String getDistName() {

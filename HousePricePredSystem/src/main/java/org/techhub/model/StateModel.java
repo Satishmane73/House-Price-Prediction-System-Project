@@ -13,8 +13,16 @@ public class StateModel {
 		this.stateName = stateName;
 	}
 
+	public void setStateId(int stateId) {
+		this.stateId = stateId;
+	}
+
 	public int getStateId() {
 		return stateId;
+	}
+
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
 	}
 
 	public String getStateName() {
