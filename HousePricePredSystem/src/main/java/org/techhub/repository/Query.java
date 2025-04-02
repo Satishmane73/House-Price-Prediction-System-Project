@@ -39,7 +39,13 @@ public class Query {
 	// Qery to get all dist's by state name
 	public static String getDistByStateName = "select d.distid,d.distname from distmaster d inner join statedistjoin stj on d.distid=stj.distid inner join statemaster sm on sm.stateid=stj.stateid where sm.statename=?";
 
-	// query to call procedure to store city in citymaster and city id ,dist id
-	// ,state id in citidistjoin table
+	// query to call procedure to store city in citymaster and city id ,dist id,
+	// state id in citidistjoin table
 	public static String callProcedureOfCity = "call savecity(?,?,?)";
+
+	// query to get city id by using cityname distit and stateid by using inner join
+	public static String getCityIdByCityName = "select cm.cityid from citymaster cm inner join citydistjoin cdj on cdj.cityid=cm.cityid where cm.cityname=? and cdj.stateid=? and cdj.distid=?";
+
+	// select dm.distname,dm.distid from distmaster dm inner join statedistjoin sdj
+	// on sdj.distid=dm.distid where sdj.stateid=1;
 }

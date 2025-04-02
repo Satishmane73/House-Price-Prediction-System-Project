@@ -28,7 +28,8 @@ public class HousePricePredClientApp {
 			System.out.println("7 : Add more than one districts in state");
 			System.out.println("8 : Search,Update, delete district");
 			System.out.println("9 : Enter City");
-			System.out.println("10 : Exit");
+			System.out.println("10 : Enter Ward ");
+			System.out.println("11 : Exit");
 			System.out.println("Enter your choice");
 			int ch = scr.nextInt();
 			System.out.println();
@@ -36,6 +37,13 @@ public class HousePricePredClientApp {
 			switch (ch) {
 			case 1:
 				// In this case we are adding a state in detabase
+				System.out.println("Enter New State");
+				scr.nextLine();
+				String stateName = scr.nextLine();
+				String result = stateService.isAddNewState(new StateModel(0, stateName)) ? "State Added Succsessfully"
+						: "" + "State Not Added";
+				System.out.println(result);
+				break;
 			case 2:
 				List<StateModel> list = stateService.getAllStates();
 
@@ -48,7 +56,7 @@ public class HousePricePredClientApp {
 			case 3:
 				System.out.println("Enter state name to search state");
 				scr.nextLine();
-				String stateName = scr.nextLine();
+				stateName = scr.nextLine();
 				StateModel model = stateService.getSateByName(stateName);
 				if (model != null) {
 					System.out.println(model.getStateId() + "\t" + model.getStateName());
@@ -221,6 +229,8 @@ public class HousePricePredClientApp {
 				}
 				break;
 			case 10:
+				break;
+			case 11:
 				System.exit(0);
 				break;
 			default:

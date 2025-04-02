@@ -21,4 +21,23 @@ public class CityRepositoryImpl extends DBState implements CityRepository {
 			return false;
 		}
 	}
+
+	@Override
+	public int getCityIdByCityName(String cityName, int stateId, int distId) {
+		try {
+			stmt = conn.prepareStatement(Query.getCityIdByCityName);
+			stmt.setString(1, cityName);
+			stmt.setInt(2, stateId);
+			stmt.setInt(3, distId);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			} else {
+				return -1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }
